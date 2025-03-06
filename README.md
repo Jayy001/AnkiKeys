@@ -1,8 +1,8 @@
 <p align="center">
 <img src="media/demo.gif">
 
-<p align="center"><i>Make shortcut learning a breeze</i><br>
-
+<p align="center"><i>Make shortcut learning a breeze</i><br><a href="https://github.com/Jayy001/AnkiKeys/releases/tag/alpha">Download</a>
+  
 # Features
 
 - **Interactive Virtual Keyboard**: Displays a responsive keyboard layout directly in your Anki cards ⌨️
@@ -26,6 +26,3 @@ Each key should be separated by a space. For example, if the shortcut was to sel
 During review, to answer the card, tap the <kbd>Escape</kbd> key. If you've made a mistake and want to correct it, simply tap the <kbd>Backspace</kbd> key as required.
 
 In the case that the addon breaks and key presses are not recongised/being sent to Anki, please restart the program.
-
-# Installation
-Zip the contents of src/ to package.apkg and import it into Anki. Altenrativley, download a pre-built package from the releases page.
