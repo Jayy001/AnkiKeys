@@ -23,7 +23,7 @@ When adding the `Back` field, it's imperative you only enter the key combination
 
 Each key should be separated by a space. For example, if the shortcut was to select all text, you would enter `Ctrl A`.
 
-During review, to answer the card, tap the <kbd>Escape</kbd> key. If you've made a mistake and want to correct it, simply tap the <kbd>Backspace</kbd> key as required.
+During review, to answer the card, tap the <kbd>Enter</kbd> key as usual. If you've made a mistake and want to correct it, simply tap the <kbd>Backspace</kbd> key as required.
 
 In the case that the addon breaks and key presses are not recongised/being sent to Anki, please restart the program.
 
