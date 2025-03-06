@@ -1,0 +1,408 @@
+<!-- Prettify by @pranavdeshai: Basic (front) version 0.1.3 | Keyboard support by @Jayy001
+
+    Original Author:
+    - Reddit: https://www.reddit.com/user/Various_Breadfruit48
+    - GitHub: https://github.com/pranavdeshai/anki-prettify
+    - Buy Me a Coffee: https://www.buymeacoffee.com/pranavdeshai
+    - Ko-fi: https://ko-fi.com/pranavdeshai
+
+    Keyboard support:
+    - GitHub: https://github.com/Jayy001/AnkiKeys
+    - AnkiAddons: <TBC>
+
+    -->
+    <div class="prettify-flashcard">
+      <div contenteditable="false" class="prettify-deck">{{Deck}}</div>
+      <div contenteditable="false" class="prettify-field prettify-field--front">{{edit:Front}}</div>
+      <style>
+        .keyboard {
+          background-color: #303030;
+          border-radius: 8px;
+          padding: 20px;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          width: 950px;
+          user-select: none;
+        }
+
+        .row {
+          display: flex;
+          gap: 8px;
+        }
+
+        .spacer {
+          width: 20px;
+        }
+
+        .key {
+          background-color: #4a4a4a;
+          border-radius: 5px;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 50px;
+          position: relative;
+          box-shadow: 0 4px 0 #323232;
+          transition: all 0.15s;
+          font-weight: bold;
+          font-size: 14px;
+        }
+
+        .key.pressed {
+          background-color: #4CAF50;
+          box-shadow: 0 2px 0 #2E7D32;
+          transform: translateY(2px);
+        }
+
+        .key.pressed::after {
+          content: attr(data-order);
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          font-size: 12px;
+          font-weight: bold;
+          background-color: #1b5e20;
+          color: white;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .unit1 { width: 50px; }
+        .unit1-25 { width: 62.5px; }
+        .unit1-5 { width: 75px; }
+        .unit1-75 { width: 87.5px; }
+        .unit2 { width: 100px; }
+        .unit2-25 { width: 112.5px; }
+        .unit2-75 { width: 137.5px; }
+        .unit6-25 { width: 312.5px; }
+
+        .instruction {
+          margin-top: 20px;
+          font-family: Arial, sans-serif;
+          color: #303030;
+          text-align: center;
+        }
+
+        .counter {
+          font-size: 20px;
+          margin-top: 10px;
+          color: #303030;
+        }
+      </style>
+      <div class="keyboard">
+        <!-- Function Row -->
+        <div class="row">
+          <div class="key unit1" data-key="Escape">Esc</div>
+          <div class="spacer"></div>
+          <div class="key unit1" data-key="F1">F1</div>
+          <div class="key unit1" data-key="F2">F2</div>
+          <div class="key unit1" data-key="F3">F3</div>
+          <div class="key unit1" data-key="F4">F4</div>
+          <div class="spacer"></div>
+          <div class="key unit1" data-key="F5">F5</div>
+          <div class="key unit1" data-key="F6">F6</div>
+          <div class="key unit1" data-key="F7">F7</div>
+          <div class="key unit1" data-key="F8">F8</div>
+          <div class="spacer"></div>
+          <div class="key unit1" data-key="F9">F9</div>
+          <div class="key unit1" data-key="F10">F10</div>
+          <div class="key unit1" data-key="F11">F11</div>
+          <div class="key unit1" data-key="F12">F12</div>
+          <div class="spacer"></div>
+          <div class="key unit1" data-key="PrintScreen">PrtSc</div>
+          <div class="key unit1" data-key="ScrollLock">ScrLk</div>
+          <div class="key unit1" data-key="Pause">Pause</div>
+        </div>
+
+        <!-- Row 1 -->
+        <div class="row">
+          <div class="key unit1" data-key="Backquote">`</div>
+          <div class="key unit1" data-key="Digit1">1</div>
+          <div class="key unit1" data-key="Digit2">2</div>
+          <div class="key unit1" data-key="Digit3">3</div>
+          <div class="key unit1" data-key="Digit4">4</div>
+          <div class="key unit1" data-key="Digit5">5</div>
+          <div class="key unit1" data-key="Digit6">6</div>
+          <div class="key unit1" data-key="Digit7">7</div>
+          <div class="key unit1" data-key="Digit8">8</div>
+          <div class="key unit1" data-key="Digit9">9</div>
+          <div class="key unit1" data-key="Digit0">0</div>
+          <div class="key unit1" data-key="Minus">-</div>
+          <div class="key unit1" data-key="Equal">=</div>
+          <div class="key unit2" data-key="Backspace">Backspace</div>
+          <div class="spacer"></div>
+          <div class="key unit1" data-key="Insert">Ins</div>
+          <div class="key unit1" data-key="Home">Home</div>
+          <div class="key unit1" data-key="PageUp">PgUp</div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="row">
+          <div class="key unit1-5" data-key="Tab">Tab</div>
+          <div class="key unit1" data-key="KeyQ">Q</div>
+          <div class="key unit1" data-key="KeyW">W</div>
+          <div class="key unit1" data-key="KeyE">E</div>
+          <div class="key unit1" data-key="KeyR">R</div>
+          <div class="key unit1" data-key="KeyT">T</div>
+          <div class="key unit1" data-key="KeyY">Y</div>
+          <div class="key unit1" data-key="KeyU">U</div>
+          <div class="key unit1" data-key="KeyI">I</div>
+          <div class="key unit1" data-key="KeyO">O</div>
+          <div class="key unit1" data-key="KeyP">P</div>
+          <div class="key unit1" data-key="BracketLeft">[</div>
+          <div class="key unit1" data-key="BracketRight">]</div>
+          <div class="key unit1-5" data-key="Backslash">\</div>
+          <div class="spacer"></div>
+          <div class="key unit1" data-key="Delete">Del</div>
+          <div class="key unit1" data-key="End">End</div>
+          <div class="key unit1" data-key="PageDown">PgDn</div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="row">
+          <div class="key unit1-75" data-key="CapsLock">Caps</div>
+          <div class="key unit1" data-key="KeyA">A</div>
+          <div class="key unit1" data-key="KeyS">S</div>
+          <div class="key unit1" data-key="KeyD">D</div>
+          <div class="key unit1" data-key="KeyF">F</div>
+          <div class="key unit1" data-key="KeyG">G</div>
+          <div class="key unit1" data-key="KeyH">H</div>
+          <div class="key unit1" data-key="KeyJ">J</div>
+          <div class="key unit1" data-key="KeyK">K</div>
+          <div class="key unit1" data-key="KeyL">L</div>
+          <div class="key unit1" data-key="Semicolon">;</div>
+          <div class="key unit1" data-key="Quote">'</div>
+          <div class="key unit2-25" data-key="Enter">Enter</div>
+        </div>
+
+        <!-- Row 4 -->
+        <div class="row">
+          <div class="key unit2-25" data-key="ShiftLeft">Shift</div>
+          <div class="key unit1" data-key="KeyZ">Z</div>
+          <div class="key unit1" data-key="KeyX">X</div>
+          <div class="key unit1" data-key="KeyC">C</div>
+          <div class="key unit1" data-key="KeyV">V</div>
+          <div class="key unit1" data-key="KeyB">B</div>
+          <div class="key unit1" data-key="KeyN">N</div>
+          <div class="key unit1" data-key="KeyM">M</div>
+          <div class="key unit1" data-key="Comma">,</div>
+          <div class="key unit1" data-key="Period">.</div>
+          <div class="key unit1" data-key="Slash">/</div>
+          <div class="key unit2-75" data-key="ShiftRight">Shift</div>
+          <div class="spacer"></div>
+          <div class="spacer"></div>
+          <div class="key unit1" data-key="ArrowUp">↑</div>
+          <div class="spacer"></div>
+        </div>
+
+        <!-- Row 5 -->
+        <div class="row">
+          <div class="key unit1-25" data-key="ControlLeft">Ctrl</div>
+          <div class="key unit1-25" data-key="MetaLeft">Win</div>
+          <div class="key unit1-25" data-key="AltLeft">Alt</div>
+          <div class="key unit6-25" data-key="Space">Space</div>
+          <div class="key unit1-25" data-key="AltRight">Alt</div>
+          <div class="key unit1-25" data-key="MetaRight">Win</div>
+          <div class="key unit1-25" data-key="ContextMenu">Menu</div>
+          <div class="key unit1-25" data-key="ControlRight">Ctrl</div>
+          <div class="spacer"></div>
+          <div class="key unit1" data-key="ArrowLeft">←</div>
+          <div class="key unit1" data-key="ArrowDown">↓</div>
+          <div class="key unit1" data-key="ArrowRight">→</div>
+        </div>
+      </div>
+       <script>
+            (function() {
+            pycmd('ShortcutAddon: DisableKeyboard')
+            const keys = document.querySelectorAll('.key');
+
+            // Track which modifier keys are physically pressed down
+            const modifierState = {
+                ControlLeft: false,
+                ControlRight: false,
+                ShiftLeft: false,
+                ShiftRight: false,
+                AltLeft: false,
+                AltRight: false,
+                MetaLeft: false,
+                MetaRight: false
+            };
+
+            // Function to highlight a key
+            function highlightKey(code) {
+                const keyElement = document.querySelector(`.key[data-key="${code}"]`);
+                if (keyElement && !keyElement.classList.contains('pressed')) {
+                    pycmd(`ShortcutAddon: AddKey ${code}`, (pressOrder) => {
+													if (pressOrder > 0) {
+                              keyElement.classList.add('pressed');
+                              keyElement.setAttribute('data-order', pressOrder);
+                          }
+                     });
+                }
+            }
+
+            // Function to reset all keys
+            function resetKeys() {
+                // Reset HTML
+                keys.forEach(key => {
+                    key.classList.remove('pressed');
+                    key.removeAttribute('data-order');
+                });
+
+                // Reset modifier state
+                Object.keys(modifierState).forEach(key => {
+                    modifierState[key] = false;
+                });
+
+                // Send reset
+                pycmd('ShortcutAddon: Reset');
+            }
+
+            // Function to remove the most recently pressed key
+            function removeLastKey() {
+        pycmd('ShortcutAddon: RemoveKey', (pressOrder) => {
+            if (pressOrder > -1) {
+                // Find the key with the highest data-order attribute (the most recently pressed key)
+                const lastPressedKey = Array.from(document.querySelectorAll('.key.pressed'))
+                    .reduce((latest, current) => {
+                        const currentOrder = parseInt(current.getAttribute('data-order') || '0');
+                        const latestOrder = parseInt(latest.getAttribute('data-order') || '0');
+                        return currentOrder > latestOrder ? current : latest;
+                    }, document.querySelector('.key.pressed'));
+
+                if (lastPressedKey) {
+                    const keyCode = lastPressedKey.getAttribute('data-key');
+
+                    // If the key is a modifier, update the modifier state
+                    if (modifierState.hasOwnProperty(keyCode)) {
+                        modifierState[keyCode] = false;
+                    }
+
+                    lastPressedKey.classList.remove('pressed');
+                    lastPressedKey.removeAttribute('data-order');
+                }
+            }
+        });
+            }
+
+            // Listen for keydown events
+            if (!document.keyhandler) {
+                document.addEventListener('keydown', function(event) {
+                    if (event.code === 'Escape') {
+                        pycmd('ShortcutAddon: AnswerCard');
+                        return;
+                    }
+
+                    if (event.code === 'Backspace') {
+                        removeLastKey();
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    // Handle modifier keys
+                    if (event.code === 'ControlLeft' || event.code === 'ControlRight' ||
+                        event.code === 'ShiftLeft' || event.code === 'ShiftRight' ||
+                        event.code === 'AltLeft' || event.code === 'AltRight' ||
+                        event.code === 'MetaLeft' || event.code === 'MetaRight') {
+
+                        if (!modifierState[event.code]) {
+                            modifierState[event.code] = true;
+                            highlightKey(event.code);
+                        }
+                        return;
+                    }
+
+                    // For regular keys - only highlight modifiers that haven't been recorded yet
+                    // Use isAnyCtrlPressed etc. to check if ANY modifier of that type is already highlighted
+                    const isAnyCtrlPressed = document.querySelector('.key[data-key="ControlLeft"].pressed, .key[data-key="ControlRight"].pressed');
+                    const isAnyShiftPressed = document.querySelector('.key[data-key="ShiftLeft"].pressed, .key[data-key="ShiftRight"].pressed');
+                    const isAnyAltPressed = document.querySelector('.key[data-key="AltLeft"].pressed, .key[data-key="AltRight"].pressed');
+                    const isAnyMetaPressed = document.querySelector('.key[data-key="MetaLeft"].pressed, .key[data-key="MetaRight"].pressed');
+
+                    // Only highlight modifiers if none of that type are already highlighted
+                    if (event.ctrlKey && !isAnyCtrlPressed) {
+                        // Prioritize left modifiers for consistency when we can't determine which one
+                        highlightKey('ControlLeft');
+                    }
+
+                    if (event.shiftKey && !isAnyShiftPressed) {
+                        highlightKey('ShiftLeft');
+                    }
+
+                    if (event.altKey && !isAnyAltPressed) {
+                        highlightKey('AltLeft');
+                    }
+
+                    if (event.metaKey && !isAnyMetaPressed) {
+                        highlightKey('MetaLeft');
+                    }
+
+                    // Finally highlight the actual key
+                    highlightKey(event.code);
+                });
+
+                document.addEventListener('keyup', function(event) {
+                    // Only update the modifier state, don't remove the visual highlighting
+                    if (modifierState.hasOwnProperty(event.code)) {
+                        modifierState[event.code] = false;
+                    }
+                });
+
+                document.keyhandler = true;
+            }
+
+            resetKeys();
+            })();
+      </script>
+    </div>
+      {{#Tags}}
+      <div class="prettify-tags">{{clickable:Tags}}</div>
+      {{/Tags}}
+    </div>
+
+    <script>
+      // Split hierarchical tags
+      var tagsContainerEl = document.querySelectorAll(".prettify-tags > *");
+      if (tagsContainerEl.length > 0) {
+        var tags = [];
+        tagsContainerEl.forEach((tagEl) => {
+          tagEl.classList.add("prettify-tag");
+          tags.push(tagEl.innerHTML);
+          tags.forEach((tag) => {
+            var childTag = tag.split("::").filter(Boolean);
+            tagEl.innerHTML = childTag[childTag.length - 1].trim();
+          });
+        });
+      } else {
+        tagsContainerEl = document.querySelector(".prettify-tags");
+        var tags = tagsContainerEl.innerHTML.split(" ").filter(Boolean);
+        var html = "";
+        tags.forEach((tag) => {
+          var childTag = tag.split("::").filter(Boolean);
+          html +=
+            "<span class='prettify-tag'>" +
+            childTag[childTag.length - 1] +
+            "</span>";
+        });
+        tagsContainerEl.innerHTML = html;
+      }
+    </script>
+
+    <script>
+      // Breadcrumbs to current deck
+      var deckEl = document.querySelector(".prettify-deck");
+      var subDecks = deckEl.innerHTML.split("::").filter(Boolean);
+      html = [];
+      subDecks.forEach((subDeck) => {
+        html.push("<span class='prettify-subdeck'>" + subDeck + "</span>");
+      });
+      deckEl.innerHTML = html.join("&nbsp;/&nbsp;");
+    </script>
